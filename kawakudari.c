@@ -8,6 +8,25 @@
 #include <unistd.h>  // usleep()
 #include <ncurses.h>
 
+
+void kawakudari(){
+        clear();int x = 15;
+        while(1) {
+                mvprintw(5,x,"0");
+                mvprintw(23,rand()%32,"*");
+
+                int c = getch();
+                if(c == KEY_LEFT ){ x -= 1;}
+                if(c == KEY_RIGHT){ x += 1;}
+                if (mvinch(6,x) == '*') break;
+
+                scroll(stdscr);
+                refresh();
+                usleep(80 * 1000);
+        }
+}
+
+
 int main(int argc, char ** argv){
 	// omajinai
 	initscr();
@@ -19,20 +38,7 @@ int main(int argc, char ** argv){
 	keypad(stdscr,TRUE);
 
 	// kawakudari
-	clear();int x = 15;
-	while(1) {
-		mvprintw(5,x,"0");
-		mvprintw(23,rand()%32,"*");
-
-		int c = getch();
-		if(c == KEY_LEFT ){ x -= 1;}
-		if(c == KEY_RIGHT){ x += 1;}
-		if (mvinch(6,x) == '*') break;
-
-		scroll(stdscr);
-		refresh();
-		usleep(80 * 1000);
-	}
+	kawakudari();
 
 	// omajinai
 	nodelay(stdscr,FALSE);
