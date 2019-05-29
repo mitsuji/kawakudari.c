@@ -13,31 +13,30 @@ int main(int argc, char ** argv){
 	initscr();
 	noecho();
 	curs_set(0);
-	WINDOW * win = newwin(24,32,0,0);
-	nodelay(win,TRUE);
-	scrollok(win,TRUE);
-	keypad(win,TRUE);
+	wresize(stdscr,24,32);
+	nodelay(stdscr,TRUE);
+	scrollok(stdscr,TRUE);
+	keypad(stdscr,TRUE);
 
 	// kawakudari
-	wclear(win);int x = 15;
+	clear();int x = 15;
 	while(1) {
-		mvwprintw(win,5,x,"0");
-		mvwprintw(win,23,rand()%32,"*");
+		mvprintw(5,x,"0");
+		mvprintw(23,rand()%32,"*");
 
-		int c = wgetch(win);
+		int c = getch();
 		if(c == KEY_LEFT ){ x -= 1;}
 		if(c == KEY_RIGHT){ x += 1;}
-		if (mvwinch(win,6,x) == '*') break;
+		if (mvinch(6,x) == '*') break;
 
-		scroll(win);
-		wrefresh(win);
+		scroll(stdscr);
+		refresh();
 		usleep(80 * 1000);
 	}
 
 	// omajinai
-	nodelay(win,FALSE);
-	while('q' != wgetch(win));
-	delwin(win);
+	nodelay(stdscr,FALSE);
+	while('q' != getch());
 	endwin();
 }
 
