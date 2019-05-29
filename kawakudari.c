@@ -13,13 +13,13 @@ int main(int argc, char ** argv){
 	initscr();
 	noecho();
 	curs_set(0);
-	WINDOW *  win =  newwin(24,32,0,0);
+	WINDOW * win = newwin(24,32,0,0);
 	nodelay(win,TRUE);
 	scrollok(win,TRUE);
 	keypad(win,TRUE);
 
 	// kawakudari
-	clear();int x = 15;
+	wclear(win);int x = 15;
 	while(1) {
 		mvwprintw(win,5,x,"0");
 		mvwprintw(win,23,rand()%32,"*");
